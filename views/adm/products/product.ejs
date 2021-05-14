@@ -1,0 +1,98 @@
+<%- include('../partials/header.ejs') %>
+  <%- include('../partials/navbar.ejs') %>
+    <%- include('../partials/content.ejs') %>
+      <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.min.css">
+
+      <div class="row">
+        <div class="col-12 mt-2">
+
+          <form action="/admin/products/save" method="POST" class="form">
+
+            <div class="card card-primary card-outline card-tabs">
+              <div class="card-header p-0 pt-1">
+                <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="btn-tab-produto" data-toggle="pill" href="#tab-produto" role="tab"
+                      aria-controls="custom-tabs-one-home" aria-selected="true">Produto</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="btn-tab-variacao" data-toggle="pill" href="#tab-variacao" role="tab"
+                      aria-controls="custom-tabs-one-profile" aria-selected="false">Variações</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="btn-tab-fiscal" data-toggle="pill" href="#tab-fiscal" role="tab"
+                      aria-controls="custom-tabs-one-messages" aria-selected="false">Fiscal</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <div class="tab-content" id="custom-tabs-one-tabContent">
+                  <div class="tab-pane fade show active" id="tab-produto" role="tabpanel"
+                    aria-labelledby="custom-tabs-one-home-tab">
+                    <!-- Produto -->
+                    <%- include('partials/cadastro.ejs') %> 
+                  </div>
+                  <div class="tab-pane fade" id="tab-variacao" role="tabpanel"
+                    aria-labelledby="custom-tabs-one-profile-tab">
+                    <!-- Variação -->
+                    <%- include('partials/variacao.ejs') %> 
+                  </div>
+                  <div class="tab-pane fade" id="tab-fiscal" role="tabpanel"
+                    aria-labelledby="custom-tabs-one-messages-tab">
+                    <!-- Fiscal -->
+                    <%- include('partials/fiscal.ejs') %>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card -->
+            </div>
+            <div class=" mt-3" style=" float: right;">
+              <a href="/admin/products/find/" class="btn btn-default">Cancelar</a>
+              <input type="hidden" name="id" id="id" value="<%= product.id %>">
+              <input type="submit" class="btn btn-primary" value="Salvar">
+            </div>
+          </form>
+
+        </div>
+      </div>
+      </div>
+      </div>
+
+      <%- include('../partials/footer.ejs') %>
+
+        <script src="/plugins/summernote/summernote-bs4.min.js"></script>
+        <script src="/plugins/inputmask/jquery.inputmask.min.js"></script>
+        <script>
+          $(function () {
+
+            //Habilitar o editor de texto
+            $("#descricao").summernote()
+
+            $(".money").inputmask('currency', {
+              "autoUnmask": true,
+              radixPoint: ",",
+              groupSeparator: ".",
+              allowMinus: false,
+              prefix: 'R$ ',
+              digits: 2,
+              digitsOptional: false,
+              rightAlign: false,
+              unmaskAsNumber: true
+            });
+
+            $(".tamanho").inputmask('currency', {
+              "autoUnmask": true,
+              radixPoint: ",",
+              groupSeparator: ".",
+              allowMinus: false,
+              prefix: '',
+              digits: 2,
+              digitsOptional: false,
+              rightAlign: false,
+              unmaskAsNumber: true
+            });
+
+
+          })
+
+        </script>

@@ -1,0 +1,95 @@
+<%- include('../partials/header.ejs') %>
+    <%- include('../partials/navbar.ejs') %>
+        <%- include('../partials/content.ejs') %>
+
+
+            <div class="row">
+
+                <div class="col">
+                    <div class="card m-2 card-primary card-outline">
+                        <div class="card-header">Receitas</div>
+                        <div class="card-body">
+                            <input type="text" name="search" id="search"
+                                placeholder="Pesquise pelo id, cliente, status, valor..."
+                                class="form-control mb-2 mt-2">
+                            <table id="myTable" class="table table-hover">
+
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Cliente</th>
+                                        <th>Status</th>
+                                        <th>Valor</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% pedidos.forEach(p=>{%>
+
+                                        <% if(p.pagamento){%>
+                                            <tr>
+                                                <td>
+                                                    <%= p.pagamento.id %>
+                                                </td>
+                                                <td>
+                                                    <%= p.cliente.nome %>
+                                                </td>
+                                                <td>
+                                                    <%= p.pagamento.status %>
+                                                </td>
+                                                <td>
+                                                    <%= parseFloat(p.pagamento.total).toLocaleString('pt-br',{
+                                                        style:'currency', currency:'brl' }) %>
+                                                </td>
+                                                <td>
+                                                    <button data-toggle="tooltip" title="Editar"
+                                                        class="btn btn-sm btn-primary">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button data-toggle="tooltip" title="Excluir"
+                                                        class="btn btn-sm btn-danger">
+                                                        <i class="fas fa-ban"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+
+                                            <%} %>
+
+                                                <%}) %>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <%- include('../partials/footer.ejs') %>
+                <script>
+                    $(document).ready(function () {
+                        $('#myTable').DataTable(
+                            {
+                                "language": {
+                                    "lengthMenu": "Exibir _MENU_ registros por página",
+                                    "zeroRecords": "Nada encontrado, desculpe",
+                                    "info": "Exibindo página _PAGE_ of _PAGES_",
+                                    "infoEmpty": "-",
+                                    "infoFiltered": "(Filtragem de _MAX_ no total de records)"
+                                }
+                            }
+                        );
+
+                        // Hide default search datatables where example is the ID of table
+                        $('#myTable_filter').hide();
+
+                        $('#search').on('keyup', function () {
+                            $('#myTable')
+                                .DataTable()
+                                .search($('#search').val(), false, true)
+                                .draw();
+                        });
+                    });
+
+                </script>

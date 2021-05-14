@@ -1,0 +1,155 @@
+<div class="row ml-3">
+    <div class="col-md-3">
+        <input class="form-check-input" type="checkbox" <%=!product.id?'checked':product.ativo?'checked':'' %>
+        name="ativo"
+        id="ativo">
+        <label class="form-check-label" for="flexRadioDefault1">
+            Ativo
+        </label>
+    </div>
+</div>
+<div class="row" style="float: left;">
+    <div class="col">
+        <img src="<%= product.imagem?product.imagem:'/images/imagem_default.jpg'%>" width="250" height="250"
+            id="imgLocal" alt="">
+        <input type="file" name="arquivo" class="form-control form-control-sm" id="arquivo"
+            onchange="lerArquivo(event)">
+        <input type="hidden" name="imagem" value="<%= product.imagem %>" id="imagem">
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <label for="nome">Nome</label>
+        <input type="text" value="<%= product.nome %>" name="nome" id="nome" class="form-control form-control-sm">
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <label for="codRef">Cod.Ref</label>
+        <input type="text" value="<%= product.codRef %>" name="codRef" id="codRef" class="form-control form-control-sm">
+    </div>
+    <div class="col">
+        <label for="codRef">Categoria</label>
+        <select onchange="localizarSubCategoria(event)" name="categoria" data-categoriaid="<%=product.categoriaId%>"
+            data-id="<%=product.id %>" id="categoria" class="form-control form-control-sm">
+
+            <% if(product.id && message.erro.length<=0){%>
+                <option value="<%=product.categoriaId%>">
+                    <%= product.categoria.nome%>
+                </option>
+                <%} %>
+
+        </select>
+    </div>
+    <div class="col">
+        <label for="codRef">SubCategoria</label>
+        <select name="subCategoria" id="subCategoria" class="form-control form-control-sm">
+            <% if(product.id && message.erro.length<=0){%>
+                <option value="<%=product.subcategoriaId%>">
+                    <%= product.subcategoria.nome%>
+                </option>
+                <%} %>
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <label for="codRef">Impressora</label>
+        <select name="impressoras" data-idImpressora="<%= product.impressoraId %> " id="impressoras"
+            class="form-control form-control-sm">
+
+        </select>
+    </div>
+</div>
+<hr>
+<div class="row">
+
+    <div class="col">
+        <label for="descricao">Descricao</label>
+        <textarea name="descricao" id="descricao"><%= product.descricao %></textarea>
+    </div>
+
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-3">
+        <label for="tamFinalAltura">Tam.Final-Altura</label>
+        <input type="text" placeholder="150" name="tamFinalAltura"
+            value="<%= product.tamFinalAltura?product.tamFinalAltura.replace('.',','):'0,00'%>" id="tamFinalAltura"
+            required class="form-control form-control-sm tamanho">
+    </div>
+    <div class="col-md-3">
+        <label for="tamFinalLargura">Tam.Final-Largura</label>
+        <input type="text" placeholder="150" name="tamFinalLargura"
+            value="<%= product.tamFinalLargura?product.tamFinalLargura.replace('.',','):'0,00' %>" id="tamFinalLargura"
+            required class="form-control form-control-sm tamanho">
+    </div>
+
+    <div class="col">
+        <label for="tamSangriaLargura">Tam.Sangria-Largura</label>
+        <input type="text" placeholder="150"
+            value="<%= product.tamSangriaLargura?product.tamSangriaLargura.replace('.',','):'0,00' %>"
+            name="tamSangriaLargura" id="tamSangriaLargura" required class="form-control form-control-sm tamanho">
+    </div>
+    <div class="col">
+        <label for="tamSangriaAltura">Tam.Sangria-Altura</label>
+        <input type="text" placeholder="150"
+            value="<%= product.tamSangriaAltura?product.tamSangriaAltura.replace('.',','):'0,00' %>"
+            name="tamSangriaAltura" id="tamSangriaAltura" required class="form-control form-control-sm tamanho">
+    </div>
+</div>
+<div class="row">
+
+    <div class="col">
+        <label for="material">Material</label>
+        <input type="text" value="<%= product.material %>" name="material" id="material"
+            class="form-control form-control-sm">
+    </div>
+    <div class="col">
+        <label for="gramatura">Gramatura</label>
+        <input type="text" value="<%= product.gramatura?product.gramatura.replace('.',','):'0,00' %>" name="gramatura"
+            id="gramatura" class="form-control form-control-sm tamanho">
+    </div>
+    <div class="col">
+        <label for="peso">Peso</label>
+        <input type="text" placeholder="Ex: 150" value="<%= product.peso?product.peso.replace('.',','):'0,00' %>"
+            name="peso" id="peso" class="form-control form-control-sm tamanho">
+    </div>
+    <div class="col">
+        <label for="qtd">Und</label>
+        <select name="und" id="und" class="form-control form-control-sm tamanho">
+            <option <%=product.und=='und' ?'selected':'' %> value="und">Und</option>
+            <option <%=product.und=='metroQuadrado' ?'selected':''%> value="metroQuadrado">M²
+            </option>
+        </select>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col">
+        <label for="vlrProduto">Vlr Produto</label>
+        <input type="text" value="<%= product.vlrProduto?product.vlrProduto.replace('.',','):'0,00' %>"
+            name="vlrProduto" id="vlrProduto" class="form-control form-control-sm money">
+    </div>
+    <div class="col">
+        <label for="qtd">Quantidade</label>
+        <input type="number" value="<%=product.qtd?product.qtd:'0,00'%>" name="qtd" id="qtd"
+            class="form-control form-control-sm">
+    </div>
+    <div class="col">
+        <label for="desconto">Desconto(%)</label>
+        <input type="text" value="<%= product.desconto?product.desconto.replace('.',','):'0,00' %>" name="desconto"
+            id="desconto" class="form-control form-control-sm tamanho">
+    </div>
+    <div class="col">
+        <label for="qtd">Prev. Produção</label>
+        <input type="number" name="previsaoProducao" id="previsaoProducao" class="form-control form-control-sm"
+            value="<%=product.previsaoProducao?product.previsaoProducao:'0'%>">
+    </div>
+    <div class="col">
+        <label for="propriedadeDivisao">Propriedade de Divisão</label>
+        <input type="number" required value="<%=product.propriedadeDivisao?product.propriedadeDivisao:'0'%>"
+            name="propriedadeDivisao" id="propriedadeDivisao" class="form-control form-control-sm">
+    </div>
+</div>

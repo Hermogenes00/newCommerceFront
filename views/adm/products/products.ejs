@@ -1,0 +1,112 @@
+<%- include('../partials/header.ejs') %>
+  <%- include('../partials/navbar.ejs') %>
+    <%- include('../partials/content.ejs') %>
+
+
+      <div class="row">
+        <div class="col-12 mt-2">
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <a href="/admin/products/product" class="btn btn-sm btn-primary" style="float: right;">Novo produto</a>
+              <h3 class="text-muted">Produtos</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <input type="text" name="search" id="search" placeholder="Pesquise pelo id, nome, valor, tamanhos..."
+                class="form-control mb-2 mt-2">
+              <table id="myTable" class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+
+                    <th scope="col">Id</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Tam c/ Sangria</th>
+                    <th scope="col">Tam Final</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% products.forEach(product=>{ %>
+                    <tr>
+                      <td>
+                        <%= product.id %>
+                      </td>
+                      <td>
+                        <%=product.nome %>
+                      </td>
+                      <td>
+                        <%=parseFloat(product.vlrProduto).toLocaleString('pt-br',{style:'currency',currency:'brl'})%>
+                      </td>
+                      <td>
+                        <%=parseFloat(product.tamSangriaAltura).toLocaleString('pt-br')%>x
+                          <%=parseFloat(product.tamSangriaLargura).toLocaleString('pt-br') %>
+                      </td>
+                      <td>
+                        <%=parseFloat(product.tamFinalAltura).toLocaleString('pt-br')%>x
+                          <%=parseFloat(product.tamFinalLargura).toLocaleString('pt-br') %>
+                      </td>
+                      <td>
+                        <div class="row">
+                          <div class="col text-center">
+                            <a href="/admin/products/product/<%= product.id %>" data-toggle="tooltip" title="Editar"
+                              class="btn btn-outline-primary btn-sm">
+                              <i class="fa fa-edit"></i></a>
+
+                            <button data-toggle="tooltip" title="Enviar Gabarito"
+                              onclick="enviarArquivo(event,`/admin/product/upload/<%= product.id %>`,'.rar')"
+                              class="btn btn-outline-primary btn-sm"><i class="fa fa-upload"></i></button>
+
+                            <% if(product.gabarito){ %>
+                              <a href="/gabarito/<%=product.gabarito%>" data-toggle="tooltip" title="Baixar Gabarito"
+                                class="btn btn-outline-primary btn-sm ">
+                                <i class="fa fa-download"></i>
+
+                              </a>
+                              <%} %>
+                          </div>
+
+                        </div>
+
+                      </td>
+                    </tr>
+                    <%}) %>
+                </tbody>
+
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+        </div>
+      </div>
+
+      <%- include('../partials/footer.ejs') %>
+
+
+
+        <script>
+
+          $(document).ready(function () {
+            $('#myTable').DataTable(
+              {
+                "language": {
+                  "lengthMenu": "Exibir _MENU_ registros por página",
+                  "zeroRecords": "Nada encontrado, desculpe",
+                  "info": "Exibindo página _PAGE_ of _PAGES_",
+                  "infoEmpty": "Não há registros disponíveis",
+                  "infoFiltered": "(Filtragem de _MAX_ no total de records)"
+                }
+              }
+            );
+
+            // Hide default search datatables where example is the ID of table
+            $('#myTable_filter').hide();
+
+            $('#search').on('keyup', function () {
+              $('#myTable')
+                .DataTable()
+                .search($('#search').val(), false, true)
+                .draw();
+            });
+          });
+        </script>

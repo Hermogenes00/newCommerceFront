@@ -1,0 +1,165 @@
+<%- include('../partials/header.ejs') %>
+    <%- include('../partials/navbar.ejs') %>
+        <%- include('../partials/content.ejs') %>
+
+            <div class="row">
+                <div class="col">
+                    <div class="card card-primary card-outline mt-2">
+                        <div class="card-header">
+                            <a href="#" class="btn btn-primary btn-sm" style="float: right;">Novo pedido</a>
+                            <h4>Pedidos</h4>
+                        </div>
+                        <div class="card-body">                            
+                            <input type="text" name="search" id="search"
+                                placeholder="Pesquise pelo id, nome, valor, tamanhos..." class="form-control mb-2 mt-2">
+
+                            <table id="myTable" class="table table-hover  table-borderless">
+                                <thead class="shadow-sm">
+                                    <tr>
+                                        <th>Pedido</th>
+                                        <th>Cadastro</th>
+                                        <th>Cliente</th>
+                                        
+                                        <th>Status</th>
+                                        <th>Valor</th>
+                                        <th>Frete</th>
+                                        <th>Total</th>
+                                        <th>Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% orders.forEach(o=> {%>
+                                        <tr>
+
+                                            <td>
+                                                <% if(o.status && o.status !='CANCELADO' ){%>
+                                                    <a href="#">
+                                                        <h6 data-id="<%= o.id %>" class="text-center"
+                                                            data-toggle="modal" title="Ver detalhes"
+                                                            data-target="#modalShowOrder" onclick="showItems(event)">
+                                                            <%= o.id %>
+                                                        </h6>
+                                                    </a>
+                                                    <%}else{%>
+                                                        <a href="#">
+                                                            <h6 data-id="<%= o.id %>" class="text-center">
+                                                                <%= o.id %>
+                                                            </h6>
+                                                        </a>
+                                                        <%} %>
+
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    <%= o.createdAt.toLocaleDateString('pt-br') %>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <%= o.cliente.nome %> 
+                                            </td>
+                                            
+                                            <td>
+                                                <h6>
+                                                    <%= o.status %>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    <%= parseFloat(o.total).toLocaleString('pt-br',{style:'currency',currency:'brl'})
+                                                        %>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    <%= parseFloat(o.valorFrete).toLocaleString('pt-br',{style:'currency',currency:'brl'})
+                                                        %>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    <%= parseFloat(o.valorFinal).toLocaleString('pt-br',{style:'currency',currency:'brl'})
+                                                        %>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <div class="row">
+                                                    <% if(o.status && o.status !='CANCELADO' ){%>
+
+                                                        <% if(o.pagamento && o.pagamento.status!='RECEBIDO' ){%>
+
+                                                            <form action="/order/payment/" method="post">
+                                                                <input type="hidden" name="idOrder" id="idOrder"
+                                                                    value="<%= o.id %>">
+                                                                <button type="submit"
+                                                                    class="btn btn-sm btn-outline-primary mr-2"
+                                                                    data-toggle="tooltip" title="Realizar Pagamento"><i
+                                                                        class="fa fa-credit-card"></i></button>
+                                                            </form>
+
+                                                            <form
+                                                                onsubmit="cancelarPedido(event,'Deseja realmente cancelar este pedido?',this)"
+                                                                action="/order/cancel" method="post">
+                                                                <input type="hidden" name="idOrder" value="<%= o.id %>">
+                                                                <button type="submit"
+                                                                    class="btn btn-sm btn-outline-danger mr-2"
+                                                                    data-toggle="tooltip" title="Cancelar Pedido"><i
+                                                                        class="fa fa-ban"></i></button>
+                                                            </form>
+
+                                                            <button data-toggle="tooltip"
+                                                                title="Enviar comprovante de pagamento"
+                                                                onclick="enviarArquivo(event,'/admin/payment/receipt/<%=o.id%>','.pdf')"
+                                                                class="btn btn-outline-primary btn-sm">
+                                                                <i class="fa fa-sticky-note"></i>
+                                                            </button>
+                                                            <%} %>
+
+                                                                <%} %>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <%}) %>
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <%- include('../partials/footer.ejs') %>
+
+
+                <script>
+
+                    $(document).ready(function () {
+                        $('#myTable').DataTable(
+                            {
+                                "language": {
+                                    "lengthMenu": "Exibir _MENU_ registros por página",
+                                    "zeroRecords": "Nada encontrado, desculpe",
+                                    "info": "Exibindo página _PAGE_ of _PAGES_",
+                                    "infoEmpty": "Não há registros disponíveis",
+                                    "infoFiltered": "(Filtragem de _MAX_ no total de records)"
+                                }
+                            }
+                        );
+
+                        // Hide default search datatables where example is the ID of table
+                        $('#myTable_filter').hide();
+
+                        $('#search').on('keyup', function () {
+                            $('#myTable')
+                                .DataTable()
+                                .search($('#search').val(), false, true)
+                                .draw();
+                        });
+                    });
+                </script>

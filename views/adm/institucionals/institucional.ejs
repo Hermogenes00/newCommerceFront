@@ -1,0 +1,37 @@
+<%- include('../partials/header.ejs') %>
+    <%- include('../partials/navbar.ejs') %>
+        <%- include('../partials/content.ejs') %>
+            <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.min.css">
+
+
+            <div class="row">
+                <div class="col">
+                    <div class="card mt-2 card-primary card-outline">
+                        <div class="card-header">
+                            <h5 style="float: right;">
+                                <%= institucional.createdAt.toLocaleDateString('pt-br')%>
+                            </h5>
+                            <h4>
+                                <%= institucional.titulo %>
+                            </h4>
+                           
+                        </div>
+                        <div class="card-body" data-conteudo="<%=institucional.conteudo  %>">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <%- include('../partials/footer.ejs') %>
+                <script src="/plugins/summernote/summernote-bs4.min.js"></script>
+                <script>
+                    window.onload = (event) => {
+                        let conteudo = document.querySelector('.card-body')
+                        let domParser = new DOMParser().parseFromString(conteudo.dataset.conteudo,'text/html')
+                        
+                        conteudo.innerHTML = domParser.body.innerHTML
+                    }
+                </script>

@@ -1,0 +1,89 @@
+<%- include('../partials/header.ejs') %>
+    <%- include('../partials/navbar.ejs') %>
+        <%- include('../partials/content.ejs') %>
+
+            <div class="row">
+                <div class="col">
+                    <div class="card mt-2">
+                        <div class="card-header"></div>
+                        <div class="card-body">
+                            <input type="text" name="search" id="search" placeholder="Pesquise pelo id, nome, valor, tamanhos..."
+                class="form-control mb-2 mt-2">
+                            <table id="myTable" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Titulo</th>
+                                        <th scope="col">SubTítulo</th>
+                                        <th scope="col">Imagem</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% slides.forEach(slide=>{ %>
+                                        <tr>
+                                            <td>
+                                                <%= slide.id %>
+                                            </td>
+                                            <td>
+                                                <%=slide.titulo %>
+                                            </td>
+                                            <td>
+                                                <%=slide.subTitulo %>
+                                            </td>
+                                            <td><img src="<%= slide.imagem %> " width="50px" height="50px" alt=""></td>
+                                            <td>
+                                                <form action="/admin/slide/delete"
+                                                    onsubmit="confirmacao(event,this,'Deseja realmente excluir este slide?')"
+                                                    method="post">
+                                                    <input type="hidden" name="id" id="id" value="<%=slide.id%>">
+                                                    <a href="/admin/slide/edit/<%= slide.id %>"
+                                                        class="btn btn-outline-primary btn-sm"><i
+                                                            class="fa fa-edit"></i></a>
+                                                    <button type="submit" class="btn btn-outline-primary btn-sm">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <%}) %>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+            <%- include('../partials/footer.ejs') %>
+
+                <script>
+                    $(document).ready(function () {
+                        $('#myTable').DataTable(
+                            {
+                                "language": {
+                                    "lengthMenu": "Exibir _MENU_ registros por página",
+                                    "zeroRecords": "Nada encontrado, desculpe",
+                                    "info": "Exibindo página _PAGE_ of _PAGES_",
+                                    "infoEmpty": "Não há registros disponíveis",
+                                    "infoFiltered": "(Filtragem de _MAX_ no total de records)"
+                                }
+                            }
+                        );
+
+                        // Hide default search datatables where example is the ID of table
+                        $('#myTable_filter').hide();
+
+                        $('#search').on('keyup', function () {
+                            $('#myTable')
+                                .DataTable()
+                                .search($('#search').val(), false, true)
+                                .draw();
+                        });
+                    });
+                </script>

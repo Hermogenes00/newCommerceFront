@@ -1,0 +1,246 @@
+<%- include('../partials/header.ejs') %>
+  <%- include('../partials/navbar.ejs') %>
+    <%- include('../partials/content.ejs') %>
+      <link rel="stylesheet" href="/css/producao.css">
+
+      <div class="row">
+        <div class="col">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" id="production-tab" data-toggle="tab" href="#pills-production" role="tab"
+                aria-selected="true">Produção</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="concluidos-tab" data-toggle="tab" href="#pills-concluidos" role="tab"
+                aria-selected="false">Concluidos</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="cancelados-tab" data-toggle="tab" href="#pills-cancelados" role="tab"
+                aria-selected="false">Cancelados</a>
+            </li>
+
+          </ul>
+
+          <!-- Tab panes -->
+
+          <div class="tab-content">
+            <div class="tab-pane active" id="pills-production" role="tabpanel" aria-labelledby="production-tab">
+
+              <div class="boards mt-2">
+                
+                  <div class="board">
+                    
+                      <h3>Aguardando</h3>
+                    
+                    <div class="dropzone" data-tabDropzone="1" data-status="EM_PRODUCAO">
+                      <% itens.forEach(item=>{%>
+                        <% if(item.status=="EM_PRODUCAO" ||item.status=="AGUARDANDO_PRODUCAO" ){%>
+                          <div class="card" draggable="true" data-idOrder="<%= item.pedido.id %>"
+                            data-idItemOrder="<%= item.id %>" data-status="<%= item.status %>">
+                            <div class="status green"></div>
+                            <div class="content">
+                              <img src="<%= item.produto.imagem %>" alt="" height="100" width="200"><br>
+
+                              <div id="areaBtn">
+                              </div>
+                              <hr>
+                              <span class="text-muted">Pedido nº <%= item.pedido.id%></span><br>
+                              <span class="text-muted">Item-Pedido nº <%= item.id%></span><br>
+                              <span class="text-center text-muted">
+                                <%= item.pedido.cliente.nome %>
+                              </span><br>
+                              <span class="text-muted">
+                                <%= item.produto.nome %>
+                              </span><br>
+                              <span class="text-muted">Impressora <%= item.produto.impressora.modelo %>-<%=
+                                    item.produto.impressora.marca %> </span>
+
+                              <br>
+                              <select name="optionTrabalho" onchange="cancelarTrabaho(event)"
+                                data-idOrder="<%= item.pedido.id %>" data-idItemOrder="<%= item.id %>" class="visible"
+                                id="optionTrabalho">
+                                <option value="">Selecione uma opção</option>
+                                <option value="REFUGADO">Refugar Trabalho</option>
+                                <option value="ARQUIVO_VAZIO">Arquivo Vazio</option>
+                              </select>
+
+
+                              <a href="/uploads/<%= item.arquivo %>"
+                                class="btn btn-primary btn-sm mt-3 mr-3 form-control">Baixar
+                                Arquivo</a>
+                            </div>
+                          </div>
+                          <%} %>
+                            <%}) %>
+                    </div>
+                  </div>
+                
+
+
+                
+                  <div class="board">
+                    <h3>Produzindo</h3>
+                    <div class="dropzone" data-tabDropzone="2" data-status="PRODUZINDO">
+                      <% itens.forEach(item=>{%>
+                        <% if(item.status=='PRODUZINDO' ){%>
+                          <div class="card" draggable="true" data-idOrder="<%= item.pedido.id %>"
+                            data-idItemOrder="<%= item.id %>" data-status="<%= item.status %>">
+                            <div class="status green"></div>
+                            <div class="content">
+                              <img src="<%= item.produto.imagem %>" alt="" height="100" width="200"><br>
+                              <div id="areaBtn">
+                              </div>
+                              <hr>
+                              <span class="text-muted">Pedido nº <%= item.pedido.id%></span><br>
+                              <span class="text-muted">Item-Pedido nº <%= item.id%></span><br>
+                              <span class="text-center text-muted">
+                                <%= item.pedido.cliente.nome %>
+                              </span><br>
+                              <span class="text-muted">
+                                <%= item.produto.nome %>
+                              </span><br>
+                              <span class="text-muted">Impressora <%= item.produto.impressora.modelo %>-<%=
+                                    item.produto.impressora.marca %> </span>
+                              <br>
+                              <select name="optionTrabalho" onchange="cancelarTrabaho(event)"
+                                data-idOrder="<%= item.pedido.id %>" data-idItemOrder="<%= item.id %>" class="visible"
+                                id="optionTrabalho">
+                                <option value="">Selecione uma opção</option>
+                                <option value="REFUGADO">Refugar Trabalho</option>
+                                <option value="ARQUIVO_VAZIO">Arquivo Vazio</option>
+                              </select>
+
+                              <a href="/uploads/<%= item.arquivo %>"
+                                class="btn btn-primary btn-sm mt-3 mr-3 form-control">Baixar
+                                Arquivo</a>
+                            </div>
+                          </div>
+                          <%} %>
+                            <%}) %>
+                    </div>
+                  </div>
+                
+
+
+                
+                  <div class="board">
+                    
+                      <h3>Acabamento</h3>
+                    
+                    <div class="dropzone" data-tabDropzone="3" data-status="ACABAMENTO">
+
+                      <% itens.forEach(item=>{%>
+                        <% if(item.status=='ACABAMENTO' ){%>
+                          <div class="card" draggable="true" data-idOrder="<%= item.pedido.id %>"
+                            data-idItemOrder="<%= item.id %>" data-status="<%= item.status %>">
+                            <div class="status green"></div>
+                            <div class="content">
+                              <img src="<%= item.produto.imagem %>" alt="" height="100" width="200"><br>
+                              <div id="areaBtn">
+                              </div>
+                              <hr>
+                              <span class="text-muted">Pedido nº <%= item.pedido.id%></span><br>
+                              <span class="text-muted">Item-Pedido nº <%= item.id%></span><br>
+                              <span class="text-center text-muted">
+                                <%= item.pedido.cliente.nome %>
+                              </span><br>
+                              <span class="text-muted">
+                                <%= item.produto.nome %>
+                              </span><br>
+                              <span class="text-muted">Impressora <%= item.produto.impressora.modelo %>-<%=
+                                    item.produto.impressora.marca %> </span>
+                              <br>
+                              <select name="optionTrabalho" onchange="cancelarTrabaho(event)"
+                                data-idOrder="<%= item.pedido.id %>" data-idItemOrder="<%= item.id %>" class="visible"
+                                id="optionTrabalho">
+                                <option value="">Selecione uma opção</option>
+                                <option value="REFUGADO">Refugar Trabalho</option>
+                                <option value="ARQUIVO_VAZIO">Arquivo Vazio</option>
+                              </select>
+
+
+                              <a href="/uploads/<%= item.arquivo %>"
+                                class="btn btn-primary btn-sm mt-3 mr-3 form-control">Baixar
+                                Arquivo</a>
+                            </div>
+                          </div>
+                          <%} %>
+                            <%}) %>
+                    </div>
+                  </div>
+                
+
+
+                
+                  <div class="board">
+                    
+                      <h3>Expedição</h3>
+                    
+                    <div class="dropzone" data-tabDropzone="4" data-status="EXPEDICAO">
+                      <% itens.forEach(item=>{%>
+                        <% if(item.status=='EXPEDICAO' ){%>
+                          <div class="card" draggable="true" data-idOrder="<%= item.pedido.id %>"
+                            data-idItemOrder="<%= item.id %>" data-status="<%= item.status %>">
+                            <div class="status green"></div>
+                            <div class="content">
+                              <img src="<%= item.produto.imagem %>" alt="" height="100" width="200"><br>
+
+                              <div id="areaBtn">
+                                <button class="btn btn-sm btn-primary" id="btnFinalizar"
+                                  onclick="confirmarConclusao(event)" data-idOrder="<%= item.pedido.id %>"
+                                  data-idItemOrder="<%= item.id %>">Finalizar</button>
+                              </div>
+
+                              <hr>
+                              <span class="text-muted">Pedido nº <%= item.pedido.id%></span><br>
+                              <span class="text-muted">Item-Pedido nº <%= item.id%></span><br>
+                              <span class="text-center text-muted">
+                                <%= item.pedido.cliente.nome %>
+                              </span><br>
+                              <span class="text-muted">
+                                <%= item.produto.nome %>
+                              </span><br>
+                              <span class="text-muted">Impressora <%= item.produto.impressora.modelo %>-<%=
+                                    item.produto.impressora.marca %> </span>
+                              <br>
+                              <select name="optionTrabalho" onchange="cancelarTrabaho(event)"
+                                data-idOrder="<%= item.pedido.id %>" data-idItemOrder="<%= item.id %>" class="invisible"
+                                id="optionTrabalho">
+                                <option value="">Selecione uma opção</option>
+                                <option value="REFUGADO">Refugar Trabalho</option>
+                                <option value="ARQUIVO_VAZIO">Arquivo Vazio</option>
+                              </select>
+
+                              <a href="/uploads/<%= item.arquivo %>"
+                                class="btn btn-primary btn-sm mt-3 mr-3 form-control">Baixar
+                                Arquivo</a>
+                            </div>
+                          </div>
+                          <%} %>
+
+                            <%}) %>
+                    </div>
+                  </div>
+                
+
+              </div>
+
+
+            </div>
+
+            <div class="tab-pane" id="pills-concluidos" role="tabpanel" aria-labelledby="concluidos-tab">
+              <%-include('partials/completed')%>
+            </div>
+
+            <div class="tab-pane" id="pills-cancelados" role="tabpanel" aria-labelledby="cancelados-tab">
+              <%-include('partials/canceled')%>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <%- include('../partials/footer.ejs') %>
+      <script src="/js/production.js"></script>

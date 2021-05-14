@@ -1,0 +1,88 @@
+<div class="modal fade" id="modalShowOrder" data-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="modalShowOrder" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Detalhes do pedido <span id="numPedido"></span></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4" id="previsaoEntrega">
+                                <h6>Previsão de Entrega:</h6>
+                            </div>
+                            <div class="col-md-4" id="emissao">
+                                <h6>Emissão:</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4" id="totalPedido">
+                                <span>Total do pedido:</span>
+                            </div>
+                            <div class="col-md-4" id="valorPago">
+                                <h6>Valor Pago:</h6>
+                            </div>
+                            <div class="col-md-4" id="situacaoFinanceira">
+                                <h6>Situação Financeira:</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4" id="tipoEntrega">
+                                <span>Tipo de Entrega</span> 
+                            </div>
+                            <div class="col-md-4" id="localEntrega">
+                                <h6>Local de Entrega:</h6>
+                            </div>
+                            <div class="col-md-4" id="valorFrete">
+                                <h6>Frete:</h6>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr scope="col">
+                                    <th>Id</th>
+                                    <th>Item</th>
+                                    <th>Status</th>
+                                    <th>Valor</th>
+                                    <th>Quantidade</th>
+                                    <th>Altura</th>
+                                    <th>Largura</th>
+                                    <th>Ref</th>
+                                    <th>Arquivo</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="tbItensOrder">
+
+                            </tbody>
+
+                        </table>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="status">Status</label>
+                                <input type="text" name="status" class="form-control form-control-sm" readonly
+                                    id="status">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="informe">Informe</label>
+                                <input type="text" name="informe" class="form-control form-control-sm" readonly
+                                    id="informe">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

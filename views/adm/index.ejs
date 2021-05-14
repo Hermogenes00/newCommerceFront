@@ -1,0 +1,220 @@
+<%- include('partials/header.ejs') %>
+  <%- include('partials/navbar.ejs') %>
+    <%- include('partials/content.ejs') %>
+
+
+
+      <!-- Small boxes (Stat box) -->
+      <div class="row">
+        <h1 class="text-muted">Totais</h1>
+      </div>
+      <div class="row">
+        <!-- Aqui dentro fica o conteúdo -->
+        <div class="col-lg-4 col-6">
+          <!-- small box -->
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3>
+                <% if(pedidos.filter(p=>p.status=='CARRINHO').length){%>
+                  <%=pedidos.filter(p=>
+                    p.status=='CARRINHO').map(p=>parseFloat(p.valorFinal)).reduce((acum,obj)=>acum+=obj).toLocaleString('pt-br',{currency:'brl',style:'currency'})%>
+                    <%}else{%>
+                      R$ 0,00
+                      <%}%>
+              </h3>
+
+              <p>Carrinho</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-bag"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-6">
+          <!-- small box -->
+          <div class="small-box bg-success">
+            <div class="inner">
+              <h3>
+                <% if(pedidos.filter(p=>p.status=='EM_PRODUCAO' || p.status =='AGUARDANDO_PRODUCAO' ).length){%>
+                  <%=pedidos.filter(p=>p.status=='EM_PRODUCAO' ||
+                    p.status=='AGUARDANDO_PRODUCAO').map(p=>parseFloat(p.valorFinal)).reduce((acum,obj)=>acum+=obj).toLocaleString('pt-br',{currency:'brl',style:'currency'})%>
+                    <%}else{%>
+                      R$ 0,00
+                      <%}%>
+              </h3>
+
+              <p>Produção</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-6">
+          <!-- small box -->
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3>
+                <% if(pedidos.filter(p=>p.status=='CONCLUÍDO').length){%>
+                  <%=pedidos.filter(p=>
+                    p.status=='CONCLUÍDO').map(p=>parseFloat(p.valorFinal)).reduce((acum,obj)=>acum+=obj).toLocaleString('pt-br',{currency:'brl',style:'currency'})%>
+                    <%}else{%>
+                      R$ 0,00
+                      <%}%>
+              </h3>
+
+              <p>Concluído</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-person-add"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <h1 class="text-muted">Produção</h1>
+      </div>
+
+      <div class="row">
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-danger">
+            <div class="inner">
+              <% if(items.filter(i=>i.status=='AGUARDANDO_PRODUCAO'||i.status=='EM_PRODUCAO').length){%>
+
+                <h3>
+                  <%= items.filter(i=>
+                    i.status=='AGUARDANDO_PRODUCAO'||i.status=='EM_PRODUCAO').map(i=>parseFloat(i.valor)).reduce((acum,valor)=>acum+=valor).toLocaleString('pt-br',{currency:'brl',style:'currency'})
+                    %>
+                </h3>
+                <h6>
+                  Quantidade: <%= items.filter(i=>i.status=='AGUARDANDO_PRODUCAO'||i.status=='EM_PRODUCAO').length %>
+                </h6>
+                <%}else{%>
+                  <h4>
+                    R$ 0,00
+                  </h4>
+                  <h6>
+                    Quantidade: 0
+                  </h6>
+                  <%} %>
+
+                    <p>Aguardando Produção</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-danger">
+            <div class="inner">
+
+              <% if(items.filter(i=>i.status=='PRODUZINDO').length){%>
+
+                <h3>
+                  <%= items.filter(i=>
+                    i.status=='PRODUZINDO').map(i=>parseFloat(i.valor)).reduce((acum,valor)=>acum+=valor).toLocaleString('pt-br',{currency:'brl',style:'currency'})
+                    %>
+                </h3>
+                <h6>
+                  Quantidade: <%= items.filter(i=>i.status=='PRODUZINDO').length %>
+                </h6>
+                <%}else{%>
+                  <h4>
+                    R$ 0,00
+                  </h4>
+                  <h6>
+                    Quantidade: 0
+                  </h6>
+                  <%} %>
+
+                    <p>Produzindo</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-danger">
+            <div class="inner">
+
+              <% if(items.filter(i=>i.status=='ACABAMENTO').length){%>
+
+                <h3>
+                  <%= items.filter(i=>
+                    i.status=='ACABAMENTO').map(i=>parseFloat(i.valor)).reduce((acum,valor)=>acum+=valor).toLocaleString('pt-br',{currency:'brl',style:'currency'})
+                    %>
+                </h3>
+                <h6>
+                  Quantidade: <%= items.filter(i=>i.status=='ACABAMENTO').length %>
+                </h6>
+                <%}else{%>
+                  <h4>
+                    R$ 0,00
+                  </h4>
+                  <h6>
+                    Quantidade: 0
+                  </h6>
+                  <%} %>
+
+                    <p>Acabamento</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-danger">
+            <div class="inner">
+
+              <% if(items.filter(i=>i.status=='EXPEDICAO').length){%>
+
+                <h3>
+                  <%= items.filter(i=>
+                    i.status=='EXPEDICAO').map(i=>parseFloat(i.valor)).reduce((acum,valor)=>acum+=valor).toLocaleString('pt-br',{currency:'brl',style:'currency'})
+                    %>
+                </h3>
+                <h6>
+                  Quantidade: <%= items.filter(i=>i.status=='EXPEDICAO').length %>
+                </h6>
+                <%}else{%>
+                  <h4>
+                    R$ 0,00
+                  </h4>
+                  <h6>
+                    Quantidade: 0
+                  </h6>
+                  <%} %>
+                    <p>Expedição</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+      </div>
+
+
+
+      <%- include('partials/footer.ejs') %>        

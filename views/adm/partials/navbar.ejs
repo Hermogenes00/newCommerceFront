@@ -1,0 +1,293 @@
+<body class="hold-transition sidebar-mini">
+  <!-- Site wrapper -->
+  <div class="wrapper">
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+      </ul>
+
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
+        <!-- Navbar Search -->
+        <li class="nav-item">
+          <a class="nav-link" data-widget="navbar-search" href="/" role="button">
+            <i class="fas fa-search"></i>
+          </a>
+          <div class="navbar-search-block">
+            <form class="form-inline">
+              <div class="input-group input-group-sm">
+                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                  <button class="btn btn-navbar" type="submit">
+                    <i class="fas fa-search"></i>
+                  </button>
+                  <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </li>
+
+        <!-- Messages Dropdown Menu -->
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="/">
+            <p class="text-muted">Ir a loja</p>
+          </a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="/collaborator/logout">
+            <p class="text-muted">Sair</p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    </nav>
+
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
+      <a href="/main" class="brand-link">
+        <img src="/dist/img/image_corporation.jpg" alt="Ecommerce Evoluir" class="brand-image img-circle elevation-3"
+          style="opacity: .8">
+        <span class="brand-text font-weight-light">Ecommerce Evoluir</span>
+      </a>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <img src="/dist/img/image_user.jpg" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+            <a href="#" class="d-block">
+              <%= collaborator.nome %>
+            </a>
+          </div>
+        </div>
+
+        <!-- SidebarSearch Form -->
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+             with font-awesome or any other icon font library -->
+
+            <!-- Estoque -->
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <p>
+                  Manager
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/admin/products/find/" class="nav-link">
+                    <i class="nav-icon"></i>
+                    <p>Produtos</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/main/clients/" class="nav-link">
+                    <i class="nav-icon"></i>
+                    <p>Clientes</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/main/clients/" class="nav-link">
+                    <i class="nav-icon"></i>
+                    <p>Perfil de clientes</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/admin/fornecedores" class="nav-link">
+                    <i class="nav-icon"></i>
+                    <p>Fornecedores</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/category/categories/" class="nav-link">
+                    <i class="nav-icon"></i>
+                    <p>Categorias</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/admin/printers" class="nav-link">
+                    <i class="nav-icon"></i>
+                    <p>Impressoras</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/admin/slides" class="nav-link">
+                    <i class="nav-icon"></i>
+                    <p>Slides</p>
+                  </a>
+                </li>
+
+              </ul>
+            </li>
+            <!-- Vendas -->
+            <li class="nav-item">
+
+              <a href="#" class="nav-link">
+                <i class="nav-icon"></i>
+                <p>
+                  Vendas
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/main/orders/" class="nav-link">
+                    <i class="nav-icon"></i>
+                    <p>Ordem de produção</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/index2.html" class="nav-link">
+                    <i class="nav-icon"></i>
+                    <p>Pedidos</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../../index2.html" class="nav-link">
+                    <i class="nav-icon"></i>
+                    <p>Relatório</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Entradas -->
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon"></i>
+                <p>
+                  Entrada
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <p>Pedido de compra</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <!-- Fiscal -->
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon"></i>
+                <p>
+                  Fiscal
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="../../index.html" class="nav-link">
+                    <i class="nav-icon"></i>
+                    <p>NFS-e</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/admin/certified" class="nav-link">
+                    <i class="nav-icon"></i>
+                    <p>Config</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../../index2.html" class="nav-link">
+                    <i class="nav-icon"></i>
+                    <p>Relatório</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Financeiro -->
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon"></i>
+                <p>
+                  Financeiro
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/admin/payment/" class="nav-link">
+                    <i class="nav-icon"></i>
+                    <p>À receber</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../../index2.html" class="nav-link">
+                    <i class="nav-icon"></i>
+                    <p>À pagar</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../../index2.html" class="nav-link">
+                    <i class="nav-icon"></i>
+                    <p>Relatório</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Produção -->
+            <li class="nav-item">
+              <a href="/production" class="nav-link">
+                <i class="nav-icon"></i>
+                <p>
+                  Produção
+                </p>
+              </a>
+            </li>
+
+
+            <!-- Institucional -->
+            <li class="nav-item">
+              <a href="/admin/institucionals" class="nav-link">
+                <i class="nav-icon"></i>
+                <p>
+                  Institucional
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon"></i>
+                <p>
+                  Relatórios
+                </p>
+              </a>
+            </li>
+
+            <!-- A empresa -->
+            <li class="nav-item">
+              <a href="/admin/company" class="nav-link">
+                <i class="nav-icon"></i>
+                <p>
+                  À empresa
+                </p>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+    </aside>

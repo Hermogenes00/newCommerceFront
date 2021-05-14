@@ -1,0 +1,127 @@
+<%- include('../partials/header.ejs') %>
+  <%- include('../partials/navbar.ejs') %>
+    <%- include('../partials/content.ejs') %>
+
+      <div class="row">
+        <div class="col">
+          <div class="card card-primary card-outline mt-2">
+            <div class="card-header">
+              Fornecedor
+            </div>
+            <div class="card-body">
+              <form method="POST" action="/client/save">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="nome">Razão Social</label>
+                    <input type="text" value="<%=fornecedor.razaoSocial %>" class="form-control form-control-sm"
+                      name="razaosocial" id="razaosocial">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="nome">Nome Fantasia</label>
+                    <input type="text" value="<%=fornecedor.nomeFantasia %>" class="form-control form-control-sm"
+                      name="nomeFantasia" id="nomeFantasia">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-6">
+                    <label for="cnpjCpf">Inscrição Estadual</label>
+                    <input type="number" value="<%=fornecedor.inscricaoEstadual %>" class="form-control form-control-sm" name="cnpj"
+                      id="cnpj">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="cnpjCpf">Cnpj</label>
+                    <input type="number" value="<%=fornecedor.cnpj %>" class="form-control form-control-sm" name="cnpj"
+                      id="cnpj">
+                  </div>
+                </div>
+
+
+                <hr>
+
+                <div class="form-row">
+                  
+                  <div class="form-group col-md">
+                    <label for="email">Email</label>
+                    <input type="email" value="<%=fornecedor.email %>" name="email" required
+                      class="form-control form-control-sm" id="email">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-2">
+                    <label for="tel">Telefone</label>
+                    <input type="tel" value="<%=fornecedor.tel %>" pattern="[0-9]{2} [0-9]{4}-[0-9]{4}"
+                      placeholder="00 0000-0000" required="Verifique o formato digitado"
+                      class="form-control form-control-sm" name="tel" id="tel">
+                  </div>
+                  <div class="form-group col-md-2">
+                    <label for="cel">Celular</label>
+                    <input type="tel" value="<%=fornecedor.cel%>" pattern="[0-9]{2} [0-9]{5}-[0-9]{4}"
+                      placeholder="00 90000-0000" required="Verifique o formato digitado"
+                      class="form-control form-control-sm" name="cel1" id="cel1">
+                  </div>
+                  <div class="form-group col-md-2">                    
+                    <label for="cep">Cep</label>
+                    <div class="input-group  ">                      
+                      <input type="number" value="<%=fornecedor.cep %>" name="cep" id="cep"
+                        class="form-control form-control-sm" placeholder="">
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-3">
+                    <label for="rua">Cidade</label>
+                    <input type="text" value="<%=fornecedor.cidade %>" readonly required
+                      class="form-control form-control-sm" name="cidade" id="cidade">
+                  </div>
+
+
+                  <div class="form-group col-md-2">
+                    <label for="rua">Uf</label>
+                    <input type="text" value="<%=fornecedor.uf %>" readonly required
+                      class="form-control form-control-sm" name="uf" id="uf">
+                  </div>
+                </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="rua">Endereço</label>
+                <input type="text" value="<%=fornecedor.endereco %>" required class="form-control form-control-sm"
+                  value="asdfasd" name="rua" id="rua">
+              </div>
+              <div class="form-group col-md-2">
+                <label for="bairro">Bairro</label>
+                <input type="text" value="<%=fornecedor.bairro %>" required class="form-control form-control-sm"
+                  name="bairro" id="bairro">
+              </div>
+              <div class="form-group col-md-2">
+                <label for="numero">Nº</label>
+                <input type="text" value="<%=fornecedor.numero %>" required class="form-control form-control-sm"
+                  name="numero" id="numero">
+              </div>
+              <div class="form-group col-md-3">
+                <label for="complemento">Complemento</label>
+                <input type="text" value="<%=fornecedor.complemento %>" class="form-control form-control-sm"
+                  name="complemento" id="complemento">
+              </div>
+              <input type="hidden" name="id" value="<%=fornecedor.id %>">
+            </div>
+
+          </div>
+
+            <div class="row">
+              <div class="col">
+                <button type="submit" class="btn btn-primary m-2" style="float: right;">Salvar</button>
+              </div>
+            </div>
+
+          </div>
+          </form>
+        </div>
+      </div>
+      </div>
+
+      </div>
+
+
+
+
+      <%- include('../partials/footer.ejs') %>

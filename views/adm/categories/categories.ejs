@@ -1,0 +1,57 @@
+<%- include('../partials/header.ejs') %>
+    <%- include('../partials/navbar.ejs') %>
+        <%- include('../partials/content.ejs') %>
+
+            <div class="row">
+                <div class="col mt-2">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">Categorias</div>
+                        <div class="card-body">
+                            <table id="myTable" style="width: 100%;" class="table-hover align-middle">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Nome</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%for(let cat in categories){%>
+                                        <tr>
+                                            <td>
+                                                <%=categories[cat].id %>
+                                            </td>
+                                            <td colspan="2">
+                                                <%=categories[cat].nome %>
+                                            </td>
+                                        </tr>
+                                        <%} %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+            <%- include('../partials/footer.ejs') %>
+
+                <script>
+                    $(function () {
+                        $('#myTable').DataTable({
+                            "paging": true,
+                            "lengthChange": false,
+                            "searching": true,
+                            "ordering": true,
+                            "autoWidth": false,
+                            "responsive": true,
+                            "info": true,
+                            "language": {
+                                "zeroRecords": "Ops! Nada encontrado",
+                                "info": "Exibindo página _PAGE_ de _PAGES_",
+                            }
+                        });
+                    })
+                </script>

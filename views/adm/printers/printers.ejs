@@ -1,0 +1,84 @@
+<%- include('../partials/header.ejs') %>
+  <%- include('../partials/navbar.ejs') %>
+    <%- include('../partials/content.ejs') %>
+
+      <div class="row">
+        <div class="col">
+          <div class="card mt-2 card-primary card-outline">
+            <div class="card-header">Impressoras</div>
+            <div class="card-body">
+              <input type="text" name="search" id="search" placeholder="Pesquise pelo id, ativo, marca, modelo..."
+                class="form-control mb-2 mt-2">
+              <table id="myTable" class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th>Ativo</th>
+                    <th scope="col">Marca</th>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Imagem</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% printers.forEach(prt=>{ %>
+                    <tr>
+                      <td>
+                        <%= prt.id %>
+                      </td>
+                      <td>
+                        <%= prt.ativo==1?'Sim':'Não' %>
+                      </td>
+                      <td>
+                        <%=prt.marca %>
+                      </td>
+                      <td>
+                        <%=prt.modelo %>
+                      </td>
+                      <td><img src="<%= prt.imagem %> " width="50px" height="50px" alt=""></td>
+                      <td>
+                        <a href="/admin/printers/printer/<%= prt.id %>" class="btn btn-outline-primary  btn-sm">
+                          <i class="fa fa-edit"></i>
+                        </a>
+                        <form action="/admin/slide/delete"
+                          onsubmit="confirmacao(event,this,'Deseja realmente excluir esta impressora?')" method="post">
+                          <input type="hidden" name="id" id="id" value="<%=prt.id%>">
+                        </form>
+                      </td>
+                    </tr>
+                    <%}) %>
+                </tbody>
+
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <%- include('../partials/footer.ejs') %>
+        <script>
+
+          $(function () {
+            $("#myTable").dataTable({
+              "language": {
+                "lengthMenu": "Exibir _MENU_ registros por página",
+                "zeroRecords": "Nada encontrado, desculpe",
+                "info": "Exibindo página _PAGE_ of _PAGES_",
+                "infoEmpty": "Não há registros disponíveis",
+                "infoFiltered": "(Filtragem de _MAX_ no total de records)"
+              }
+            })
+
+            $('#myTable_filter').hide();
+
+            $('#search').on('keyup', function () {
+              $('#myTable')
+                .DataTable()
+                .search($('#search').val(), false, true)
+                .draw();
+            });
+          })
+
+
+        </script>

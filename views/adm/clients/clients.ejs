@@ -1,0 +1,112 @@
+<%- include('../partials/header.ejs') %>
+    <%- include('../partials/navbar.ejs') %>
+        <%- include('../partials/content.ejs') %>
+
+
+
+            <div class="row">
+                <div class="col">
+
+                <div class="card mt-2 card-primary card-outline">
+                    <div class="card-header">
+                        <a href="/main/client" style="float: right;" class="btn btn-primary btn-sm">Novo Cliente</a>
+                        <h3 class="text-muted">Clientes</h3>
+                        
+                    </div>
+                    <div class="card-body">
+                        <input type="text" name="search" id="search" placeholder="Pesquise pelo nome, cnpj/cpf, email..."
+                class="form-control mb-2 mt-2">
+                        <table id="myTable" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Cnpj/Cpf</th>
+                                    <th>email</th>
+                                    <th class="text-center"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% clients.forEach(clt=> {%>
+    
+                                    <tr>
+                                        <td>
+                                            <h6>
+                                                <%= clt.nome %>
+                                            </h6>
+                                        </td>
+                                        <td>
+                                            <h6>
+                                                <%= clt.cnpjCpf %>
+                                            </h6>
+                                        </td>
+                                        <td>
+                                            <h6>
+                                                <%= clt.email %>
+                                            </h6>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <a href="" title="Ver Pedido" class="btn btn-sm btn-outline-primary"
+                                                    data-toggle="tooltip" data-placement="top" title="Comprados"
+                                                    data-target="#exampleModal"><i class="fa fa-shopping-cart"></i></a>
+    
+                                                <a href="" data-toggle="modal" class="btn btn-sm btn-outline-primary"
+                                                    onclick="verCarrinho(event)" data-target="#exampleModal"
+                                                    data-whatever="@getbootstrap">
+                                                    <i class="fa fa-shopping-basket" data-toggle="tooltip"
+                                                        data-placement="top" title="Ver Carrinho"
+                                                        data-clientId="<%=clt.id%>"></i></a>
+    
+                                                <a href="" title="Ver Pedido" class="btn btn-sm btn-outline-primary"><i
+                                                        data-toggle="tooltip" title="Análise"
+                                                        class="fa fa-chart-area"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+    
+                                    <%}); %>
+    
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+
+                   
+                </div>
+            </div>
+
+
+
+
+
+
+            <%- include('../partials/footer.ejs') %>
+            <script>
+
+                $(document).ready(function () {
+                  $('#myTable').DataTable(
+                    {
+                      "language": {
+                        "lengthMenu": "Exibir _MENU_ registros por página",
+                        "zeroRecords": "Nada encontrado, desculpe",
+                        "info": "Exibindo página _PAGE_ of _PAGES_",
+                        "infoEmpty": "Não há registros disponíveis",
+                        "infoFiltered": "(Filtragem de _MAX_ no total de records)"
+                      }
+                    }
+                  );
+      
+                  // Hide default search datatables where example is the ID of table
+                  $('#myTable_filter').hide();
+      
+                  $('#search').on('keyup', function () {
+                    $('#myTable')
+                      .DataTable()
+                      .search($('#search').val(), false, true)
+                      .draw();
+                  });
+                });
+              </script>
